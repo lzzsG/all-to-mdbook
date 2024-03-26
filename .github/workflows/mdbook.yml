@@ -3,7 +3,7 @@ name: Deploy mdBook site to Pages
 on:
   # 在默认分支上的推送触发
   push:
-    branches: ["master"]
+    branches: ["main"]
   # 定时触发，例如每天凌晨1点UTC时间
   schedule:
     - cron: '0 1 * * *'
@@ -24,13 +24,22 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MDBOOK_VERSION: 0.4.36
-      SOURCE_REPO_URL: "https://github.com/lzzsG/rustlings-notebook/tree/main"  # 替换成你的源仓库URL
+     
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 确保获取完整的仓库，以便访问配置文件
+
+      - name: Read config file
+        id: read_config
+        run: |
+          echo "SOURCE_REPO_URL=$(python -c "import configparser; config = configparser.ConfigParser(); config.read('config.ini'); print(config['repository']['url'])")" >> $GITHUB_ENV
+
 
       # 克隆源仓库到src目录下
       - name: Clone Source Repository into src
         run: |
+          rm -rf src
           git clone ${SOURCE_REPO_URL} src
           # 如果src目录已经存在且你不想覆盖，可以先检查再克隆
           # 注意：根据mdBook的配置，可能需要调整下一步的构建路径
@@ -53,12 +62,12 @@ jobs:
 
       # 确保mdBook的构建路径指向src目录
       - name: Build with mdBook
-        run: mdbook build src
+        run: mdbook build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./src/book  # 根据mdBook的实际输出目录调整
+          path: ./book  # 根据mdBook的实际输出目录调整
 
   deploy:
     environment:
