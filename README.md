@@ -1,90 +1,144 @@
-仓库模板
-此仓库包含使用 mdBook 框架创建的书籍项目，演示了如何自动部署书籍到 GitHub Pages。
+# all-to-mdbook 自动化部署 mdBook 仓库
 
-## 项目概览
+本仓库旨在提供一种自动化的方式来部署包含 Markdown 文件结构的仓库到 mdBook。利用 GitHub Actions，它能够自动识别仓库中的 Markdown 文件，并生成相应的 mdBook。此外，它支持自定义配置，如目标仓库链接、忽略特定文件夹、启用自然排序等，使得生成的书籍结构更加合理和美观。
 
-本项目利用 mdBook，一个用于从 Markdown 文件创建现代在线书籍的工具。我们的目标是自动化构建和部署流程，以便每次更新内容时都能快速发布到 GitHub Pages 上。
+## 特性
 
-## 如何使用
+- 自动化生成 mdBook 目录。
+- 支持自定义目标仓库链接。
+- 支持忽略特定文件夹，避免在目录中显示空文件夹。
+- 支持自然排序，以便在目录中正确排序数字（如 `1, 2, ..., 10, 11`）。
+- 可以通过工作流配置文件设置自动触发时间间隔。
+- 识别 `README.md` 文件并将其置顶。
+- 使用 mdBook-tools 仓库设计的排版主题。
 
-要在本地构建和预览书籍，请确保已安装 [Rust](https://www.rust-lang.org/) 和 mdBook。然后，克隆此仓库并运行以下命令：
+## 配置
 
+本项目的配置通过 `config.ini` 文件进行，该文件包含两个主要部分：`src` 和 `repository`。
+
+### 示例配置
+
+```ini
+[src]
+directory = ./src
+output_file = ./src/SUMMARY.md
+ignore_dirs = .git,figs,examples,figures,.github
+use_natural_sort = True
+
+[repository]
+url = https://github.com/yourusername/yourrepository
 ```
-clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
-mdbook serve
+
+- `directory`: 指定 md 文件的源目录。
+- `output_file`: 指定生成的目录文件。
+- `ignore_dirs`: 指定需要忽略的目录列表。
+- `use_natural_sort`: 是否启用自然排序。
+- `url`: 目标仓库的链接。
+
+## 工作流自动化
+
+本项目通过 `.github/workflows/mdbook.yml` 文件配置 GitHub Actions 工作流，以自动化 mdBook 的生成和部署。
+
+### 工作流配置
+
+```yaml
+schedule:
+  - cron: '*/6 * * * *'
 ```
 
-打开浏览器访问 `http://localhost:3000` 查看书籍。
+#### 时间间隔含义
 
-## 自动部署流程
+`cron` 表达式 `'*/6 * * * *'` 表示每小时的每 6 分钟触发一次工作流。
 
-通过 GitHub Actions 实现了 CI/CD 流程，自动将书籍部署到 GitHub Pages。以下是部署流程的概述：
+## 使用方法
 
-1. **推送更改**：将更改推送到 `main` 分支。
-2. **GitHub Actions 触发**：基于 `.github/workflows/deploy.yml` 中定义的工作流程，GitHub Actions 会自动触发构建过程。
-3. **构建书籍**：GitHub Actions 会安装 mdBook，然后构建书籍内容。
-4. **部署到 GitHub Pages**：构建完成后，书籍会自动部署到 GitHub Pages。
+#### 1. Fork 仓库
 
-你可以在 GitHub 仓库的 "Actions" 选项卡下查看工作流程的执行情况。
+- 点击右上角的 "Fork" 按钮，将仓库 Fork 到你的 GitHub 账户下。
 
-### 关于Fork和GitHub Actions工作流
+#### 2. 启用 GitHub Pages
 
-当你fork一个包含GitHub Actions工作流程文件的仓库时，工作流默认是不会自动运行的。这是为了防止恶意行为（比如自动运行可能消耗资源的工作流）。如果你想在fork的仓库中启用GitHub Actions工作流，你需要手动激活它们：
+- 进入你 Fork 后的仓库的 "Settings"。
+- 找到 "Pages" 部分。
+- 在 "Build and deployment" 选项中，选择"GitHub Actions"
 
-1. **前往你fork的仓库页面**，点击上方的`Actions`标签。
-2. 如果工作流被禁用，你会看到一个消息提示你启用它们。点击`I understand my workflows, go ahead and enable them`按钮以激活工作流。
-3. 启用GitHub Pages： 转到仓库设置中的“Pages”部分，启用GitHub Pages
-4. 好吧，其实可以删掉.github文件夹直接在设置中的“Pages”部分，Build and deployment的Source选择GitHub Actions然后选择mdbook就好了。🆗
+#### 3. 修改配置文件
 
-## 关于 mdBook
+##### a. `config.ini` - 定制目录结构 排除规则 目标仓库链接
 
-mdBook 是一个用 Rust 编写的命令行工具和库，用于从 Markdown 文件创建在线书籍。它灵感来源于 GitBook，并且专为编写技术文档和教程而设计。mdBook 生成的书籍具有清晰的结构、美观的界面，并且支持多种格式的输出，包括静态网站和 PDF 文件。
+在你的项目中找到 `config.ini` 文件，并按照以下模板进行修改以适应你的项目需求：
 
-mdBook 提供了多种功能，如：
+```ini
+[src]
+ignore_dirs = .git,figs,examples,figures,.github
+use_natural_sort = True
 
-- **支持 Markdown**：使用 Markdown 编写内容，简单易用。
-- **多语言支持**：可以轻松地创建多语言书籍。
-- **可配置**：通过 `book.toml` 配置文件，你可以定制书籍的各个方面，如主题、插件和输出格式。
-- **测试代码片段**：可以测试书籍中的代码片段，确保代码的准确性。
-- **搜索功能**：生成的书籍带有内置的搜索功能，方便读者查找信息。
+[repository]
+url = https://github.com/yourusername/yourrepository
+```
 
-mdBook 非常适合创建如编程语言文档、软件使用手册和教程等技术文档。它的使用范围从个人项目到大型企业都非常广泛。
+- `ignore_dirs`: 根据需要调整 `ignore_dirs` 以忽略不需要包含在 mdBook 目录中的文件夹，使用逗号分隔即可。
+- `use_natural_sort`: 是否启用自然排序。
+- **`url`: 用于生成 mdbook 的目标仓库的链接。**
 
-### 学习资源
+##### b. `book.toml` - 定制书籍信息
 
-要了解更多关于 mdBook 的信息，包括如何安装、使用和配置 mdBook，你可以访问以下资源：
+在 `book.toml` 中找到 `[book]` 部分，修改 `title` 以设置你的书籍标题：
 
-- **GitHub 仓库**：https://github.com/rust-lang/mdBook
-- **官方文档**：https://rust-lang.github.io/mdBook/
+```toml
+[book]
+title = "Your Book Title"
+```
 
-这些资源提供了丰富的指南和示例，帮助你开始使用 mdBook 来创建和发布你自己的在线书籍。
+##### c. 自定义导航
 
-## 项目定制
+- 找到 `theme/index.hbs` 文件。
+- 在大约第 180 行，根据需要修改 HTML 代码来自定义书籍的导航栏。或删除导航（'\<a>'包裹的内容）。
 
-本项目对 mdBook 进行了以下定制：
+#### 4. 配置 `mdbook.yml` 触发事件（可选）
 
-#### Black 主题
+在 `.github/workflows/mdbook.yml` 文件中，你可以设置触发事件：
 
-位于`theme\css\variables.css:62`
+```yaml
+on:
+  push:
+    branches: ["main"]
+  schedule:
+    - cron: '0 1 * * *' # 每天凌晨 1 点触发
+  workflow_dispatch:
+```
 
-#### 自定义导航
+- 这配置了三种触发方式：当推送到 `main` 分支时、每 30 分钟自动一次、以及手动触发。默认每天凌晨 1 点触发。
+- **常用设置**
+  - 每 30 分钟触发一次：`'*/30 * * * *'`
+  - 每小时触发：`'0 * * * *'`
+  - 每天凌晨 1 点触发：`'0 1 * * *'`
 
-位于`theme\index.hbs:180`
+#### 5. 触发 GitHub Actions
 
-#### 修改CSS 效果
+##### a. 提交更改
 
-位于`theme\css\chrome.css`
+- 提交这些更改到你的仓库。这可以通过 GitHub 的网页界面或 git 命令行工具来完成。
 
-如果你不需要这些定制，可以简单地通过以下操作进行调整或删除：
+##### b. 触发 GitHub Actions
 
-- **删除主题**：将 `theme` 文件夹从你的项目中删除，mdBook 将回退到默认主题。
-- **修改主题和效果**：在 `theme` 文件夹中更改 CSS 和 hbs文件，你可以调整导航样式和其他视觉效果以满足你的需求。
+- 提交更改将自动触发 GitHub Actions
 
-## mdBook 目录生成工具
+- 如果没有启动 GitHub Actions 工作流，请按照以下步骤操作：
+  1. 访问你 fork 后的仓库页面。
+  2. 点击仓库顶部的 "Actions" 选项卡。
+  3. 如果看到 GitHub 提示说 Actions 需要被启用，请点击 "I understand my workflows, go ahead and enable them" 按钮。
 
-在本项目中还开发了一个小工具，用于从文件夹结构的一系列 Markdown 文件自动生成 `SUMMARY.md` 目录。简化从已有md文件生成书籍项目和目录结构的工作。
+#### 6. 查看你的 mdBook
 
-该工具的使用方法和源代码可以在下面的链接找到：
+- 在几分钟后，访问 GitHub Pages 的 URL 查看你的 mdBook。URL 可以在仓库的 "Settings" -> "Pages" 部分找到。
 
-- [mdBook-tools GitHub 仓库](https://github.com/lzzsG/mdBook-generate-directory)
+通过遵循上述步骤，你可以轻松地 Fork 仓库、进行必要的配置更改，并通过 GitHub Actions 自动部署 mdBook 到 GitHub Pages。
+
+## 与 mdBook-tools 配合使用
+
+本项目使用了 [mdBook-tools](https://github.com/lzzsG/mdBook-tools) 仓库设计的一些工具和主题。删除theme文件夹可以使 mdbook 退回默认状态。
+
+## 创建新的 Markdown 仓库
+
+为了充分利用本项目的功能，你可以创建一个新的仓库专门用于存放 Markdown 文件，并组织一定的层次结构。使用本仓库自动生成目录和书籍并上线。
