@@ -54,7 +54,7 @@ jobs:
 
       # 确保mdBook的构建路径指向src目录
       - name: Build with mdBook
-        run: mdbook build src
+        run: mdbook build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
