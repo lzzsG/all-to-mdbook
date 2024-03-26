@@ -74,7 +74,7 @@ ignore_dirs = .git,figs,examples,figures,.github
 use_natural_sort = True
 
 [repository]
-url = https://github.com/yourusername/yourrepository
+url = https://github.com/your_target_repository
 ```
 
 - `ignore_dirs`: 根据需要调整 `ignore_dirs` 以忽略不需要包含在 mdBook 目录中的文件夹，使用逗号分隔即可。
@@ -83,12 +83,15 @@ url = https://github.com/yourusername/yourrepository
 
 ##### b. `book.toml` - 定制书籍信息
 
-在 `book.toml` 中找到 `[book]` 部分，修改 `title` 以设置你的书籍标题：
+在 `book.toml` 中找到 `[book]` 部分，修改 `title` 以设置你的书籍标题; 在`[output.html]`部分，修改 `git-repository-url` 以设置 github 图标跳转链接：
 
 ```toml
 [book]
 title = "Your Book Title"
+[output.html]
+git-repository-url = "https://github.com/your_username/your_repository"
 ```
+
 
 ##### c. 自定义导航
 
