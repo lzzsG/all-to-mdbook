@@ -59,7 +59,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./src/book  # 根据mdBook的实际输出目录调整
+          path: ./book  # 根据mdBook的实际输出目录调整
 
   deploy:
     environment:
