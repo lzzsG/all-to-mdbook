@@ -27,6 +27,8 @@ jobs:
      
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 确保获取完整的仓库，以便访问配置文件
 
       - name: Read config file
         id: read_config
