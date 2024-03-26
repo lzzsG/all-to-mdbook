@@ -762,20 +762,19 @@ ul#searchresults span.teaser em {
     position: fixed;
     right: 0;
     /* Align to the right side */
-    top: 100px;
-    bottom: 0;
-    width: var(--current-content-toc-width, 190px);
+    top: 45px;
+
+    width: var(--current-content-toc-width, 220px);
     /* Set a default width or use a CSS variable */
     overflow-y: auto;
     z-index: 0;
-    padding: 0px;
     box-sizing: border-box;
     font-size: 0.875em;
-    padding-right: 20px;
+    padding-right: 18px;
 }
 
 .content-area {
-    margin-right: 185px;
+    margin-right: 210px;
     /* 右边距设置为目录的宽度，保持内容区域居中 */
     padding-left: 15px;
     padding-right: 15px;

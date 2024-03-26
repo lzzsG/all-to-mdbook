@@ -28,9 +28,15 @@ def generate_summary(directory, base_path="", ignore_dirs=[], level=0, use_natur
             summary_lines.append(f"{indent}- [{name}]({link})")
 
     return summary_lines
-
+    
 def create_summary_file(src_directory, output_file="SUMMARY.md", ignore_dirs=[], use_natural_sort=False):
-    summary_content = '\n'.join(generate_summary(src_directory, "", ignore_dirs, 0, use_natural_sort))
+    # 检查根目录下是否存在README.md，如果存在，则在最顶部添加它的引用
+    readme_path = os.path.join(src_directory, "README.md")
+    readme_link = ""
+    if os.path.isfile(readme_path):
+        readme_link = "[README](README.md)\n\n"
+    
+    summary_content = readme_link + '\n'.join(generate_summary(src_directory, "", ignore_dirs, 0, use_natural_sort))
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(summary_content)
     print(f"SUMMARY.md has been created at {output_file}")
