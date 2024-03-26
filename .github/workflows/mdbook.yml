@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MDBOOK_VERSION: 0.4.36
-      SOURCE_REPO_URL: "https://github.com/lzzsG/rustlings-notebook"  # 替换成你的源仓库URL
+      SOURCE_REPO_URL: "https://github.com/lzzsG/test-temp"  # 替换成你的源仓库URL
     steps:
       - uses: actions/checkout@v4
 
