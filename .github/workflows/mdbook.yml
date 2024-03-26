@@ -4,9 +4,9 @@ on:
   # 在默认分支上的推送触发
   push:
     branches: ["main"]
-  # 定时触发，例如每天凌晨1点UTC时间
+  # 定时触发
   schedule:
-    - cron: '20 * * * *'
+     - cron: '*/6 * * * *'
   # 允许手动触发
   workflow_dispatch:
 
