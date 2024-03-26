@@ -24,9 +24,15 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MDBOOK_VERSION: 0.4.36
-      SOURCE_REPO_URL: "https://github.com/lzzsG/test-temp"  # 替换成你的源仓库URL
+     
     steps:
       - uses: actions/checkout@v4
+
+      - name: Read config file
+        id: read_config
+        run: |
+          echo "SOURCE_REPO_URL=$(python -c "import configparser; config = configparser.ConfigParser(); config.read('config.ini'); print(config['repository']['url'])")" >> $GITHUB_ENV
+
 
       # 克隆源仓库到src目录下
       - name: Clone Source Repository into src
