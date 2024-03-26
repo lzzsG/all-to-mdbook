@@ -9,7 +9,7 @@ title = "os-mdbook-test"
 [output.html]
 default-theme = "black"
 preferred-dark-theme = "black"
-git-repository-url = "https://github.com/lzzsG/mdBook-pages-test"
+git-repository-url = "https://github.com/lzzsG/test-all-to-mdbook"
 git-repository-icon = "fa-github"
 
 
