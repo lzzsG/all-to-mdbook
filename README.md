@@ -13,6 +13,7 @@
 - 可以通过工作流配置文件设置自动触发时间间隔。
 - 识别 `README.md` 文件并将其置顶。
 - 使用 mdBook-tools 仓库设计的排版主题。
+- 自动生成 `about-this-mdbook.md` 文件并将其置底。
 
 ## 配置
 
@@ -119,7 +120,13 @@ on:
   - 每小时触发：`'0 * * * *'`
   - 每天凌晨 1 点触发：`'0 1 * * *'`
 
-#### 5. 触发 GitHub Actions
+#### 5. 修改 `add-about-this-mdbook.md` （可选）
+
+命名为 `add-about-this-mdbook.md` 的文件的内容将追加到自动生成的 `about-this-mdbook.md` 文件末尾。此功能旨在通过将自定义附加信息或详情存储在一个单独的Markdown文件中，来丰富生成的mdBook的“关于”部分。
+
+`about-this-mdbook.md` 默认包括 “mdBook 内容来源链接” 和本仓库链接。
+
+#### 6. 触发 GitHub Actions
 
 ##### a. 提交更改
 
@@ -134,7 +141,7 @@ on:
   2. 点击仓库顶部的 "Actions" 选项卡。
   3. 如果看到 GitHub 提示说 Actions 需要被启用，请点击 "I understand my workflows, go ahead and enable them" 按钮。
 
-#### 6. 查看你的 mdBook
+#### 7. 查看你的 mdBook
 
 - 在几分钟后，访问 GitHub Pages 的 URL 查看你的 mdBook。URL 可以在仓库的 "Settings" -> "Pages" 部分找到。
 
