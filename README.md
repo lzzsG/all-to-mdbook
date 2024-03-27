@@ -1,4 +1,4 @@
-# all-to-mdbook 自动化部署 mdBook 仓库
+# all-to-mdbook 自动化部署 mdBook GitHub Pages
 
 [English](README_EN.md) | 中文
 
