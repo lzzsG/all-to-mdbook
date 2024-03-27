@@ -154,4 +154,5 @@ on:
 ## 当前配置
 
 本仓库当前配置的克隆目标仓库为 (https://github.com/LearningOS/os-lectures)[https://github.com/LearningOS/os-lectures]
+
 全自动生成效果为 (https://lzzsg.github.io/all-to-mdbook)[https://lzzsg.github.io/all-to-mdbook]
