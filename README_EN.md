@@ -148,3 +148,7 @@ This project utilizes some tools and themes designed by the [mdBook-tools](https
 ## Creating a New Markdown Repository
 
 To fully leverage the features of this project, you can create a new repository specifically for storing Markdown files, organizing them with a numerical prefix and folder structure. Use this repository to automatically generate a directory and book online.
+
+## Current configuration
+This repository is currently configured as a clone target repository https://github.com/LearningOS/os-lectures
+The fully automated generation result is https://lzzsg.github.io/all-to-mdbook
