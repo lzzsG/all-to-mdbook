@@ -150,3 +150,8 @@ on:
 ## 创建新的 Markdown 仓库
 
 为了充分利用本项目的功能，你可以创建一个新的仓库专门用于存放 Markdown 文件，并使用数字开头和文件夹组织一定的层次结构。使用本仓库自动生成目录和书籍并上线。
+
+## 当前配置
+
+本仓库当前配置的克隆目标仓库为 (https://github.com/LearningOS/os-lectures)[https://github.com/LearningOS/os-lectures]
+全自动生成效果为 (https://lzzsg.github.io/all-to-mdbook)[https://lzzsg.github.io/all-to-mdbook]
