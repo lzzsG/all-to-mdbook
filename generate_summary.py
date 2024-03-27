@@ -46,15 +46,19 @@ def create_summary_file(src_directory, output_file="SUMMARY.md", ignore_dirs=[],
     
     # 创建 about-this-mdbook.md 文件并写入内容
     about_content = f"mdBook 内容来源：[{repo_url}]({repo_url})\n\nmdBook 自动生成：[https://github.com/lzzsG/all-to-mdbook](https://github.com/lzzsG/all-to-mdbook)"
-    additional_about_content_path = os.path.join(src_directory, "add-about-this-mdbook.md")
     about_file_path = os.path.join(src_directory, "about-this-mdbook.md")
     with open(about_file_path, "w", encoding="utf-8") as about_file:
         about_file.write(about_content)
-        # 检查并添加 add-about-this-mdbook.md 的内容
-        if os.path.isfile(additional_about_content_path):
-            with open(additional_about_content_path, "r", encoding="utf-8") as additional_about_file:
-                additional_content = additional_about_file.read()
-                about_file.write("\n\n" + additional_content)  # 在 about-this-mdbook.md 文件中追加内容
+
+    # 检查并添加 add-about-this-mdbook.md 的内容
+    # 路径为脚本所在目录
+    additional_about_content_path = "add-about-this-mdbook.md"
+    if os.path.isfile(additional_about_content_path):
+        with open(additional_about_content_path, "r", encoding="utf-8") as additional_about_file:
+            additional_content = additional_about_file.read()
+            # 追加内容到 about-this-mdbook.md 文件
+            with open(about_file_path, "a", encoding="utf-8") as about_file:  # 这里使用追加模式'a'
+                about_file.write("\n\n" + additional_content)
     
     # 在目录的最后添加 about-this-mdbook.md 的引用
     summary_content += "\n\n[About This MdBook](about-this-mdbook.md)"
@@ -63,6 +67,7 @@ def create_summary_file(src_directory, output_file="SUMMARY.md", ignore_dirs=[],
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(summary_content)
     print(f"SUMMARY.md has been created at {output_file}")
+
 
 def read_config(config_file):
     config = configparser.ConfigParser()
