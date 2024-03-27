@@ -44,11 +44,17 @@ def create_summary_file(src_directory, output_file="SUMMARY.md", ignore_dirs=[],
     # 生成目录内容
     summary_content = readme_link + '\n'.join(generate_summary(src_directory, "", ignore_dirs, 0, use_natural_sort))
     
-    # 创建 about-this-mdbook.md 文件
+    # 创建 about-this-mdbook.md 文件并写入内容
     about_content = f"mdBook 内容来源：[{repo_url}]({repo_url})\n\nmdBook 自动生成：[https://github.com/lzzsG/all-to-mdbook](https://github.com/lzzsG/all-to-mdbook)"
+    additional_about_content_path = os.path.join(src_directory, "add-about-this-mdbook.md")
     about_file_path = os.path.join(src_directory, "about-this-mdbook.md")
     with open(about_file_path, "w", encoding="utf-8") as about_file:
         about_file.write(about_content)
+        # 检查并添加 add-about-this-mdbook.md 的内容
+        if os.path.isfile(additional_about_content_path):
+            with open(additional_about_content_path, "r", encoding="utf-8") as additional_about_file:
+                additional_content = additional_about_file.read()
+                about_file.write("\n\n" + additional_content)  # 在 about-this-mdbook.md 文件中追加内容
     
     # 在目录的最后添加 about-this-mdbook.md 的引用
     summary_content += "\n\n[About This MdBook](about-this-mdbook.md)"
