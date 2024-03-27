@@ -13,6 +13,7 @@ This repository aims to provide an automated way to deploy repositories containi
 - Ability to set automatic trigger intervals through workflow configuration files.
 - Recognition of `README.md` files and placing them at the top.
 - Designed using the typography theme from the mdBook-tools repository.
+- Automatically generate the about-this-mdbook.md file and place it at the bottom.
 
 ## Configuration
 
@@ -118,7 +119,13 @@ on:
   - Trigger every hour: `'0 * * * *'`
   - Trigger at 1 AM every day: `'0 1 * * *'`
 
-#### 5. Trigger GitHub Actions
+#### 5. Modify `add-about-this-mdbook.md` (Optional)
+
+The content of the file named `add-about-this-mdbook.md` will be appended to the end of the automatically generated `about-this-mdbook.md` file. This feature is designed to enrich the "About" section of the generated mdBook by storing custom additional information or details in a separate Markdown file.
+
+`about-this-mdbook.md` includes by default the "mdBook content source link" and the link to this repository.
+
+#### 6. Trigger GitHub Actions
 
 ##### a. Commit Changes
 
@@ -132,7 +139,7 @@ on:
   2. Click on the "Actions" tab at the top of the repository.
   3. If you see a prompt from GitHub saying Actions need to be enabled, click the "I understand my workflows, go ahead and enable them" button.
 
-#### 6. View Your mdBook
+#### 7. View Your mdBook
 
 - After a few minutes, visit the URL of GitHub Pages to view your mdBook. The URL can be found in the "Settings" -> "Pages" section of the repository.
 
