@@ -23,8 +23,6 @@ The configuration of this project is done through the `config.ini` file, which c
 
 ```ini
 [src]
-directory = ./src
-output_file = ./src/SUMMARY.md
 ignore_dirs = .git,figs,examples,figures,.github
 use_natural_sort = True
 
@@ -32,8 +30,6 @@ use_natural_sort = True
 url = https://github.com/yourusername/yourrepository
 ```
 
-- `directory`: Specifies the source directory of the md files.
-- `output_file`: Specifies the generated directory file.
 - `ignore_dirs`: Specifies a list of directories to ignore.
 - `use_natural_sort`: Whether to enable natural sorting.
 - `url`: The link to the target repository.
@@ -46,12 +42,12 @@ This project configures a GitHub Actions workflow through the `.github/workflows
 
 ```yaml
 schedule:
-  - cron: '*/6 * * * *'
+  - cron: '*/30 * * * *'
 ```
 
 #### Meaning of the Interval
 
-The `cron` expression `'*/6 * * * *'` means triggering the workflow every 6 minutes.
+The `cron` expression `'*/30 * * * *'` means triggering the workflow every 30 minutes.
 
 ## How to Use
 
@@ -95,7 +91,7 @@ title = "Your Book Title"
 git-repository-url = "https://github.com/your_username/your_repository"
 ```
 
-##### c. Customize Navigation
+##### c. Customize Navigation (Optional)
 
 - Find the `theme/index.hbs` file.
 - Around line 180, modify the HTML code as needed to customize the book's navigation bar. Or remove the navigation (`<a>` wrapped content).
