@@ -45,7 +45,7 @@ def create_summary_file(src_directory, output_file="SUMMARY.md", ignore_dirs=[],
     summary_content = readme_link + '\n'.join(generate_summary(src_directory, "", ignore_dirs, 0, use_natural_sort))
     
     # 创建 about-this-mdbook.md 文件
-    about_content = f"mdBook 内容来源：[{repo_url}]({repo_url})\n\nmdBook 自动生成：[https://github.com/lzzsG/test-all-to-mdbook](https://github.com/lzzsG/test-all-to-mdbook)"
+    about_content = f"mdBook 内容来源：[{repo_url}]({repo_url})\n\nmdBook 自动生成：[https://github.com/lzzsG/all-to-mdbook](https://github.com/lzzsG/all-to-mdbook)"
     about_file_path = os.path.join(src_directory, "about-this-mdbook.md")
     with open(about_file_path, "w", encoding="utf-8") as about_file:
         about_file.write(about_content)
