@@ -23,8 +23,6 @@
 
 ```ini
 [src]
-directory = ./src
-output_file = ./src/SUMMARY.md
 ignore_dirs = .git,figs,examples,figures,.github
 use_natural_sort = True
 
@@ -32,8 +30,6 @@ use_natural_sort = True
 url = https://github.com/yourusername/yourrepository
 ```
 
-- `directory`: 指定 md 文件的源目录。
-- `output_file`: 指定生成的目录文件。
 - `ignore_dirs`: 指定需要忽略的目录列表。
 - `use_natural_sort`: 是否启用自然排序。
 - `url`: 目标仓库的链接。
@@ -46,12 +42,12 @@ url = https://github.com/yourusername/yourrepository
 
 ```yaml
 schedule:
-  - cron: '*/6 * * * *'
+  - cron: '*/30 * * * *'
 ```
 
 #### 时间间隔含义
 
-`cron` 表达式 `'*/6 * * * *'` 表示每 6 分钟触发一次工作流。
+`cron` 表达式 `'*/30 * * * *'` 表示每 30 分钟触发一次工作流。
 
 ## 使用方法
 
@@ -96,7 +92,7 @@ git-repository-url = "https://github.com/your_username/your_repository"
 ```
 
 
-##### c. 自定义导航
+##### c. 自定义导航（可选）
 
 - 找到 `theme/index.hbs` 文件。
 - 在大约第 180 行，根据需要修改 HTML 代码来自定义书籍的导航栏。或删除导航（'\<a>'包裹的内容）。
