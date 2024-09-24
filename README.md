@@ -13,7 +13,7 @@
 - 可以通过工作流配置文件设置自动触发时间间隔。
 - 识别 `README.md` 文件并将其置顶。
 - 使用 mdBook-tools 仓库设计的排版主题。
-- 自动生成 `about-this-mdbook.md` 文件并将其置底。
+- 自动生成 `about-this-mdbook.md` 文件并将其置底
 
 ## 配置
 
