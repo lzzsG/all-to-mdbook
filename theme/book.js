@@ -733,10 +733,8 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener("DOMContentLoaded", () => {
     const sections = document.querySelectorAll("main h1, main h2, main h3, main h4");
     const navLinks = document.querySelectorAll(".current-content-toc a");
-    let allowScrollUpdate = true; // 控制变量
 
     function activateLink() {
-        if (!allowScrollUpdate) return; // 如果不允许更新，则直接返回
         let index = sections.length;
         while (--index && window.scrollY + 75 < sections[index].offsetTop) { }
         navLinks.forEach(link => link.classList.remove('active'));
@@ -744,17 +742,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const activeLink = document.querySelector(`.current-content-toc a[href="#${activeSection}"]`);
         if (activeLink) {
             activeLink.classList.add('active');
+
+            // 使用 scrollIntoView 方法，使激活的链接在 TOC 中居中显示
+            activeLink.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+                inline: 'nearest'
+            });
         }
     }
 
     window.addEventListener('scroll', activateLink);
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', function () {
-            navLinks.forEach(lnk => lnk.classList.remove('active'));
-            link.classList.add('active');
-            allowScrollUpdate = false; // 点击后暂时禁止滚动更新
-            setTimeout(() => { allowScrollUpdate = true; }, 100); // 100毫秒后重新允许滚动更新
-        });
-    });
 });
+
+
